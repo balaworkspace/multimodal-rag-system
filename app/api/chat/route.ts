@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     let contextText = '';
     if (matchedDocuments && matchedDocuments.length > 0) {
       // Combine all retrieved chunks into one big string separated by dashed lines
-      contextText = matchedDocuments.map(doc => doc.content).join('\n\n---\n\n');
+      contextText = matchedDocuments.map((doc: { content: string }) => doc.content).join('\n\n---\n\n');
     } else {
       contextText = "No relevant context found in the uploaded documents.";
     }

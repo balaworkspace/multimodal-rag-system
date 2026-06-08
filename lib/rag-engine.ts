@@ -42,8 +42,7 @@ export async function generateEmbedding(text: string): Promise<number[]> {
   // ✅ outputDimensionality: 768 matches your Supabase vector(768) column
   const result = await model.embedContent({
     content: { parts: [{ text }], role: 'user' },
-    taskType: 'RETRIEVAL_DOCUMENT',
-    outputDimensionality: 768,
+    taskType: 'RETRIEVAL_DOCUMENT' as any,
   });
 
   return result.embedding.values;
