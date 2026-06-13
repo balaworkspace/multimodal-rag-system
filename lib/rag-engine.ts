@@ -31,15 +31,15 @@ export function chunkText(text: string, maxChunkSize: number = 1000): string[] {
 
   return chunks;
 }
-
 /**
  * STEP 2: Embedding
  * Sends a chunk of text to Google Gemini to get its vector representation.
  */
 export async function generateEmbedding(text: string): Promise<number[]> {
-  const model = genAI.getGenerativeModel({ model: 'gemini-embedding-001' });
+  // Use text-embedding-004 or embedding-001 (both support native 3,072 default sizing)
+  const model = genAI.getGenerativeModel({ model: 'text-embedding-004' });
 
-  // ✅ outputDimensionality: 768 matches your Supabase vector(768) column
+  // 🚀 Removed outputDimensionality restriction to natively send 3,072 dimensions
   const result = await model.embedContent({
     content: { parts: [{ text }], role: 'user' },
     taskType: 'RETRIEVAL_DOCUMENT' as any,

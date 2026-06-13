@@ -19,17 +19,12 @@ export async function POST(request: NextRequest) {
     if (!userMessage) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
     }
-
-    // 2. Generate a vector embedding for the user's question
-    const queryEmbedding = await generateEmbedding(userMessage);
-
     // 3. RETRIEVAL: Search Supabase for the most relevant document chunks
     const { data: matchedDocuments, error: matchError } = await supabase.rpc('match_documents', {
       query_embedding: queryEmbedding,
-      match_threshold: 0.7, // 70% similarity threshold
+      match_threshold: 0.3, // Lowered from 0.7 to handle 3,072-dimension spacing properly
       match_count: 5,       // Get the top 5 most relevant chunks
     });
-
     if (matchError) {
       console.error('Supabase match error:', matchError);
       throw matchError;
