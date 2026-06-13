@@ -19,6 +19,7 @@ export async function POST(request: NextRequest) {
     if (!userMessage) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
     }
+    const queryEmbedding = await generateEmbedding(userMessage);
     // 3. RETRIEVAL: Search Supabase for the most relevant document chunks
     const { data: matchedDocuments, error: matchError } = await supabase.rpc('match_documents', {
       query_embedding: queryEmbedding,
