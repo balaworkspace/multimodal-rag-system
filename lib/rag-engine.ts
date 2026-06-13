@@ -36,10 +36,9 @@ export function chunkText(text: string, maxChunkSize: number = 1000): string[] {
  * Sends a chunk of text to Google Gemini to get its vector representation.
  */
 export async function generateEmbedding(text: string): Promise<number[]> {
-  // Use text-embedding-004 or embedding-001 (both support native 3,072 default sizing)
-  const model = genAI.getGenerativeModel({ model: 'text-embedding-004' });
+  // 🚀 Switch to embedding-001 which is fully supported on the v1beta endpoint
+  const model = genAI.getGenerativeModel({ model: 'embedding-001' });
 
-  // 🚀 Removed outputDimensionality restriction to natively send 3,072 dimensions
   const result = await model.embedContent({
     content: { parts: [{ text }], role: 'user' },
     taskType: 'RETRIEVAL_DOCUMENT' as any,
