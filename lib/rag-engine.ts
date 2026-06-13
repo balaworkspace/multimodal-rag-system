@@ -37,7 +37,7 @@ export function chunkText(text: string, maxChunkSize: number = 1000): string[] {
  */
 export async function generateEmbedding(text: string): Promise<number[]> {
   // 🚀 Switch to embedding-001 which is fully supported on the v1beta endpoint
-  const model = genAI.getGenerativeModel({ model: 'embedding-001' });
+  const model = genAI.getGenerativeModel({ model: 'text-embedding-004' });
 
   const result = await model.embedContent({
     content: { parts: [{ text }], role: 'user' },
